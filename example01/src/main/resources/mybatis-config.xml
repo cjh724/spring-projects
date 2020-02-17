@@ -4,4 +4,9 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
+	<!-- parameterType, resultType 줄이기(p183) -->
+	<typeAliases>
+		<package name="org.zerock.domain"/>
+	</typeAliases>
+	
 </configuration>
