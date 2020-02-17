@@ -6,6 +6,7 @@ import org.slf4j.*;
 import org.springframework.stereotype.*;
 import org.springframework.ui.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.*;
 import org.zerock.domain.*;
 import org.zerock.service.*;
 
@@ -23,14 +24,19 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/register", method=RequestMethod.POST)
-	public String registerPOST(BoardVO board, Model model) throws Exception {
+	public String registerPOST(BoardVO board, RedirectAttributes rttr) throws Exception {
 		logger.info("regist post..............");
 		logger.info(board.toString());
 		
 		service.regist(board);
 		
-		model.addAttribute("result", "success");
+		rttr.addFlashAttribute("msg", "success");
 		
-		return "/board/success";
+		return "redirect:/board/listAll";		
+	}
+	
+	@RequestMapping(value="/listAll", method=RequestMethod.GET)
+	public void listAll(Model model) throws Exception {
+		logger.info("show all list................");
 	}
 }
