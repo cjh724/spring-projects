@@ -19,7 +19,7 @@ public class BoardController {
 	private BoardService service;
 	
 	@RequestMapping(value="/register", method=RequestMethod.GET)
-	public void registerGET(BoardVO board, Model model) throws Exception {
+	public void registerGET(BoardVO board, Model model) throws Exception {			// 등록페이지 이동
 		logger.info("register get..............");
 	}
 	
@@ -38,6 +38,21 @@ public class BoardController {
 	@RequestMapping(value="/read", method=RequestMethod.GET)
 	public void read(@RequestParam("bno") int bno, Model model) throws Exception {		// Read
 		model.addAttribute(service.read(bno));		// ("boardVO", service.read(bno))
+	}
+	
+	@RequestMapping(value="/modify", method=RequestMethod.GET)
+	public void modifyGET(int bno, Model model) throws Exception {		// 수정페이지 이동
+		model.addAttribute(service.read(bno));
+	}
+	
+	@RequestMapping(value="/modify", method=RequestMethod.POST)
+	public String modifyPOST(BoardVO board, RedirectAttributes rttr) throws Exception {			// UPDATE
+		logger.info("modify post...................");
+		
+		service.modify(board);
+		rttr.addFlashAttribute("msg", "success");
+		
+		return "redirect:/board/listAll";
 	}
 	
 	@RequestMapping(value="/remove", method=RequestMethod.POST)
