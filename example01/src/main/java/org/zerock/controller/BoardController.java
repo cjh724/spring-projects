@@ -24,7 +24,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/register", method=RequestMethod.POST)
-	public String registerPOST(BoardVO board, RedirectAttributes rttr) throws Exception {
+	public String registerPOST(BoardVO board, RedirectAttributes rttr) throws Exception {		// Create
 		logger.info("regist post..............");
 		logger.info(board.toString());
 		
@@ -33,6 +33,11 @@ public class BoardController {
 		rttr.addFlashAttribute("msg", "success");
 		
 		return "redirect:/board/listAll";		
+	}
+	
+	@RequestMapping(value="/read", method=RequestMethod.GET)
+	public void read(@RequestParam("bno") int bno, Model model) throws Exception {		// Read
+		model.addAttribute(service.read(bno));		// ("boardVO", service.read(bno))
 	}
 	
 	@RequestMapping(value="/listAll", method=RequestMethod.GET)
