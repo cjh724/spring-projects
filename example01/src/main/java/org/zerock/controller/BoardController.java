@@ -40,6 +40,14 @@ public class BoardController {
 		model.addAttribute(service.read(bno));		// ("boardVO", service.read(bno))
 	}
 	
+	@RequestMapping(value="/remove", method=RequestMethod.POST)
+	public String remove(@RequestParam("bno") int bno, RedirectAttributes rttr) throws Exception {		// DELETE
+		service.remove(bno);
+		rttr.addFlashAttribute("msg", "success");
+		
+		return "redirect:/board/listAll";
+	}
+	
 	@RequestMapping(value="/listAll", method=RequestMethod.GET)
 	public void listAll(Model model) throws Exception {
 		logger.info("show all list................");
