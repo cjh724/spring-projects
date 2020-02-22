@@ -68,4 +68,11 @@ public class BoardController {
 		logger.info("show all list................");
 		model.addAttribute("list", service.listAll());
 	}
+	
+	@RequestMapping(value="/listCri", method=RequestMethod.GET)
+	public void listAll(Criteria cri, Model model) throws Exception {
+		logger.info("show list Page with Criteria...................");
+		
+		model.addAttribute("list", service.listCriteria(cri));
+	}
 }

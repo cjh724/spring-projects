@@ -1,9 +1,12 @@
 package org.zerock.test;
 
+import java.util.*;
+
 import javax.inject.*;
 
 import org.junit.*;
 import org.junit.runner.*;
+import org.slf4j.*;
 import org.springframework.test.context.*;
 import org.springframework.test.context.junit4.*;
 import org.zerock.domain.*;
@@ -12,7 +15,7 @@ import org.zerock.persistence.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/spring/**/root-context.xml"})
 public class BoardDAOTest {
-	// private static final Logger logger = LoggerFactory.getLogger(BoardDAOTest.class);
+	private static final Logger logger = LoggerFactory.getLogger(BoardDAOTest.class);
 	
 	@Inject
 	private BoardDAO dao;
@@ -35,5 +38,29 @@ public class BoardDAOTest {
 	@Test
 	public void testDelete() throws Exception {
 		dao.delete(1);
+	}
+	
+	@Test
+	public void testListPage() throws Exception {
+		int page = 3;
+		
+		List<BoardVO> list = dao.listPage(page);
+		
+		for(BoardVO boardVO : list) {
+			logger.info(boardVO.getBno() + " : " + boardVO.getTitle());
+		}
+	}
+	
+	@Test
+	public void testListCriteria() throws Exception {
+		Criteria cri = new Criteria();
+		cri.setPage(2);
+		cri.setPerPageNum(20);
+		
+		List<BoardVO> list = dao.listCriteria(cri);
+		
+		for(BoardVO boardVO : list) {
+			logger.info(boardVO.getBno() + " : " + boardVO.getTitle());
+		}
 	}
 }
