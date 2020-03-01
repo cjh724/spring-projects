@@ -70,9 +70,25 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/listCri", method=RequestMethod.GET)
-	public void listAll(Criteria cri, Model model) throws Exception {
+	public void listCri(Criteria cri, Model model) throws Exception {
 		logger.info("show list Page with Criteria...................");
 		
+		System.out.println("cri : " + cri);			// Criteria [page=4, perPageNum=11]
+		System.out.println("model : " + model);		// {criteria=Criteria [page=4, perPageNum=11], org.springframework.validation.BindingResult.criteria=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+		
 		model.addAttribute("list", service.listCriteria(cri));
+	}
+	
+	@RequestMapping(value="/listPage", method=RequestMethod.GET)
+	public void listPage(Criteria cri, Model model) throws Exception {
+		logger.info(cri.toString());
+		
+		model.addAttribute("list", service.listCriteria(cri));
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+//		pageMaker.setTotalCount(131);
+		pageMaker.setTotalCount(service.listCountCriteria(cri));
+		
+		model.addAttribute("pageMaker", pageMaker);
 	}
 }
