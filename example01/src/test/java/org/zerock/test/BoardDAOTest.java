@@ -9,6 +9,7 @@ import org.junit.runner.*;
 import org.slf4j.*;
 import org.springframework.test.context.*;
 import org.springframework.test.context.junit4.*;
+import org.springframework.web.util.*;
 import org.zerock.domain.*;
 import org.zerock.persistence.*;
 
@@ -62,5 +63,31 @@ public class BoardDAOTest {
 		for(BoardVO boardVO : list) {
 			logger.info(boardVO.getBno() + " : " + boardVO.getTitle());
 		}
+	}
+	
+	@Test
+	public void testURI() throws Exception {
+		UriComponents uriComponents = UriComponentsBuilder.newInstance()
+										.path("/board/read")
+										.queryParam("bno", 12)
+										.queryParam("perPageNum", 20)
+										.build();
+		
+		logger.info("/board/read?bno=12&perPageNum=20");
+		logger.info(uriComponents.toString());
+	}
+	
+	@Test
+	public void testURI2() throws Exception {
+		UriComponents uriComponents = UriComponentsBuilder.newInstance()
+										.path("/{module}/{page}")
+										.queryParam("bno", 12)
+										.queryParam("perPageNum", 20)
+										.build()
+										.expand("board", "read")
+										.encode();
+		
+		logger.info("/board/read?bno=12&perPageNum=20");
+		logger.info(uriComponents.toString());
 	}
 }

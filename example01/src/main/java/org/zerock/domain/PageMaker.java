@@ -1,5 +1,7 @@
 package org.zerock.domain;
 
+import org.springframework.web.util.*;
+
 public class PageMaker {
 	private int totalCount;
 	private int startPage;
@@ -13,6 +15,10 @@ public class PageMaker {
 
 	public int getTotalCount() {
 		return totalCount;
+	}
+
+	public void setCri(Criteria cri) {
+		this.cri = cri;
 	}
 
 	public void setTotalCount(int totalCount) {
@@ -33,7 +39,7 @@ public class PageMaker {
 		prev = startPage == 1 ? false : true;
 		next = endPage * cri.getPerPageNum() >= totalCount ? false : true;
 	}
-
+	
 	public int getStartPage() {
 		return startPage;
 	}
@@ -78,13 +84,18 @@ public class PageMaker {
 		return cri;
 	}
 
-	public void setCri(Criteria cri) {
-		this.cri = cri;
-	}
-
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
 		return super.toString();
+	}
+	
+	public String makeQuery(int page) {
+		UriComponents uriComponents = UriComponentsBuilder.newInstance()
+										.queryParam("page", page)
+										.queryParam("perPageNum", cri.getPerPageNum())
+										.build();
+		
+		return uriComponents.toUriString();
 	}
 }
