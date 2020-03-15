@@ -9,7 +9,6 @@ import org.junit.runner.*;
 import org.slf4j.*;
 import org.springframework.test.context.*;
 import org.springframework.test.context.junit4.*;
-import org.springframework.web.util.*;
 import org.zerock.domain.*;
 import org.zerock.persistence.*;
 
@@ -20,7 +19,7 @@ public class BoardDAOTest {
 	
 	@Inject
 	private BoardDAO dao;
-	
+	/*
 	@Test
 	public void testCreate() throws Exception {
 		BoardVO board = new BoardVO();
@@ -89,5 +88,25 @@ public class BoardDAOTest {
 		
 		logger.info("/board/read?bno=12&perPageNum=20");
 		logger.info(uriComponents.toString());
+	}
+	*/
+	@Test
+	public void testDynamic1() throws Exception {
+		SearchCriteria cri = new SearchCriteria();
+		cri.setPage(1);
+		cri.setKeyword("토트넘");
+		cri.setSearchType("t");
+		
+		logger.info("===================================");
+		
+		List<BoardVO> list = dao.listSearch(cri);
+		
+		for(BoardVO boardVO : list) {
+			logger.info(boardVO.getBno() + " : " + boardVO.getTitle());
+		}
+		
+		logger.info("===================================");
+		
+		logger.info("COUNT : " + dao.listSearchCount(cri));
 	}
 }
