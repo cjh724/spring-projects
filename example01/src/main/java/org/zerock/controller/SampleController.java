@@ -2,6 +2,7 @@ package org.zerock.controller;
 
 import java.util.*;
 
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.zerock.domain.*;
 
@@ -52,5 +53,25 @@ public class SampleController {
 		}
 		
 		return map;
+	}
+	
+	@RequestMapping("/sendErrorAuth")
+	public ResponseEntity<Void> sendListAuth() {
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);		// 400 Bad Request
+	}
+	
+	@RequestMapping("/sendErrorNot")
+	public ResponseEntity<List<SampleVO>> sendListNot() {
+		List<SampleVO> list = new ArrayList<>();
+		SampleVO vo = new SampleVO();
+		
+		for(int i=0; i<10; i++) {
+			vo.setFirstName("사춘기");
+			vo.setLastName("볼빨간");
+			vo.setMno(10);
+			list.add(vo);
+		}
+		
+		return new ResponseEntity<>(list, HttpStatus.NOT_FOUND);	// 404 Not Found
 	}
 }
