@@ -4,9 +4,11 @@ import java.util.*;
 
 import javax.inject.*;
 
+import org.springframework.stereotype.*;
 import org.zerock.domain.*;
 import org.zerock.persistence.*;
 
+@Service
 public class ReplyServiceImpl implements ReplyService {
 	@Inject
 	private ReplyDAO dao;
