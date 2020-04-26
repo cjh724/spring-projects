@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+</head>
+<body>
+	<script src="/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+	<script src="/resources/js/handlebars-v4.7.6.js"></script>
+	
+	<ul id="replies">
+	</ul>
+	
+	<script id="template" type="text/x-handlebars-template">
+		{{#each .}}
+		<li class="replyLi">
+			<div>{{rno}}</div>
+			<div>{{replytext}}</div>
+			<div>{{replydate}}</div>
+		</li>
+		{{/each}}
+	</script>
+	
+	<script type="text/javascript">
+		var source = $("#template").html();
+		var template = Handlebars.compile(source);
+		var data = [
+			{rno:1, replytext:'1번 댓글', replydate:new Date()},
+			{rno:2, replytext:'2번 댓글', replydate:new Date()},
+			{rno:3, replytext:'3번 댓글', replydate:new Date()},
+			{rno:4, replytext:'4번 댓글', replydate:new Date()},
+			{rno:5, replytext:'5번 댓글', replydate:new Date()},
+		];
+		
+		$("#replies").html(template(data));
+	</script>
+</body>
+</html>
