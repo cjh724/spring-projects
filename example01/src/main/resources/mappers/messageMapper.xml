@@ -6,7 +6,7 @@
 <mapper namespace="org.zerock.mapper.MessageMapper">
 	<insert id="create">
 		INSERT INTO
-		TBL_MESSAGE	(TARGET_ID, SENDER, MESSAGE)
+		TBL_MESSAGE	(TARGETID, SENDER, MESSAGE)
 		VALUES		(#{targetid}, #{sender}, #{message})
 	</insert>
 	

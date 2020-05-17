@@ -50,6 +50,11 @@ public class MessageVO {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return super.toString();
+		return "MessageVO [mid=" + this.mid + 
+					", targetid=" + this.targetid + 
+					", sender=" + this.sender + 
+					", message=" + this.message + 
+					", opendate=" + this.opendate + 
+					", senddate=" + this.senddate + "]";
 	}
 }
