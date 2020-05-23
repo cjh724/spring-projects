@@ -195,6 +195,20 @@
 		    <artifactId>aspectjweaver</artifactId>
 		    <version>${org.aspectj-version}</version>
 		</dependency>
+		
+		<!-- 이미지 축소 라이브러리(p520) -->
+		<dependency>
+			<groupId>org.imgscalr</groupId>
+			<artifactId>imgscalr-lib</artifactId>
+			<version>4.2</version>
+		</dependency>
+		
+		<!-- 파일업로드 라이브러리(p520) -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3.2</version>
+		</dependency>
 
 	</dependencies>
     <build>
