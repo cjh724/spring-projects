@@ -5,6 +5,7 @@ import java.util.*;
 import javax.inject.*;
 
 import org.springframework.stereotype.*;
+import org.springframework.transaction.annotation.*;
 import org.zerock.domain.*;
 import org.zerock.persistence.*;
 
@@ -18,8 +19,10 @@ public class BoardServiceImpl implements BoardService {
 		dao.create(board);
 	}
 
+	@Transactional(isolation=Isolation.READ_COMMITTED)
 	@Override
 	public BoardVO read(Integer bno) throws Exception {
+		dao.updateViewCnt(bno);
 		return dao.read(bno);
 	}
 
