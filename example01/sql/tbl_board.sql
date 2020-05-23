@@ -29,3 +29,13 @@ from tbl_board
 where bno > 0
 order by bno desc
 limit 20, 20;
+
+-- 댓글숫자 컬럼(replycnt) 추가(p502)
+alter table tbl_board add column replycnt int default 0;
+
+-- tbl_board의 댓글숫자(replycnt)과 tbl_reply의 댓글숫자 일치시키기
+UPDATE		tbl_board
+SET			replycnt = ( 	SELECT	COUNT(rno)
+							FROM	tbl_reply
+                            WHERE	bno = tbl_board.bno )
+WHERE		bno > 0;

@@ -7,6 +7,6 @@
 	<update id="updatePoint">
 		UPDATE	TBL_USER
 		SET		upoint = upoint + #{point}
-		WHERE	uuuuid = #{uid}
+		WHERE	uid = #{uid}
 	</update>
 </mapper>
