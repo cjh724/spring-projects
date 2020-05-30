@@ -37,4 +37,17 @@ public class HomeController {
 	public void ajaxTest() {
 		
 	}
+	
+	@RequestMapping(value="/test1", method=RequestMethod.GET)
+	public String test1(Model model) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("name", "CR7");
+		map.put("club", "MU");
+		map.put("intArr", new int[]{1, 2, 3, 4, 5});
+		
+		model.addAttribute("age", 18);
+		model.addAllAttributes(map);
+		
+		return "test/test1";
+	}
 }
