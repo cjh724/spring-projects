@@ -58,14 +58,15 @@
 						str = "<div>"
 							+ 	"<a href='displayFile?fileName=" + getImageLink(data) + "'>"
 							+ 		"<img src='displayFile?fileName=" + data + "'/>"
-							+ 			getImageLink(data)
 							+ 	"</a>"
+							+	"<small data-src=" + data + ">X</small>"
 							+ "</div>";
 					} else {
 						str = "<div>"
 							+ 	"<a href='displayFile?fileName=" + data + "'>"
 							+ 		getOriginalName(data)
 							+ 	"</a>"
+							+	"<small data-src=" + data + ">X</small>"
 							+ "</div>";
 					}
 					
@@ -100,6 +101,24 @@
 			
 			return front + end;
 		}
+		
+		$(".uploadedList").on("click", "small", function(event) {
+			var that = $(this);
+			
+			$.ajax({
+				url: '/fileupload/deleteFile',
+				type: 'POST',
+				data: {fileName: $(this).attr("data-src")},
+				dataType: "text",
+				success: function(result) {
+					alert("deleted");
+					
+					if(result == 'deleted') {
+						that.parent("div").remove();
+					}
+				}
+			});
+		});
 	</script>
 	
 </body>
