@@ -196,7 +196,7 @@
 		    <version>${org.aspectj-version}</version>
 		</dependency>
 		
-		<!-- 이미지 축소 라이브러리(p520) -->
+		<!-- 이미지 축소 라이브러리(p520, 553) -->
 		<dependency>
 			<groupId>org.imgscalr</groupId>
 			<artifactId>imgscalr-lib</artifactId>
