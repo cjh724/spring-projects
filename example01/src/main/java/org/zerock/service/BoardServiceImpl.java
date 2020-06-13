@@ -19,7 +19,7 @@ public class BoardServiceImpl implements BoardService {
 	public void regist(BoardVO board) throws Exception {
 		dao.create(board);
 		
-		String[] files = board.getFiles();
+		String[] files = board.getFiles();			// setFiles 해주는 곳은?
 		
 		if(files == null) {
 			return;
@@ -71,4 +71,10 @@ public class BoardServiceImpl implements BoardService {
 	public int listSearchCount(SearchCriteria cri) throws Exception {
 		return dao.listSearchCount(cri);
 	}
+
+	@Override
+	public List<String> getAttach(Integer bno) throws Exception {
+		return dao.getAttach(bno);
+	}
+	
 }

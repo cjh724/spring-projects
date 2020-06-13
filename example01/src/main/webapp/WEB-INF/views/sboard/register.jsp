@@ -5,7 +5,7 @@
 
 <%@ include file="/WEB-INF/views/include/header.jsp" %>
 
-<form role="form" method="post">
+<form id="registerForm" role="form" method="post">
 	<div class="box-body">
 		<div class="form-group">
 			<label for="exampleInputEmail1">Title</label>

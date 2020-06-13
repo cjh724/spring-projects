@@ -136,4 +136,11 @@
 		VALUES	(#{fullName}, LAST_INSERT_ID())
 	</insert>
 	
+	<select id="getAttach" resultType="string">
+		SELECT		fullname
+		FROM		tbl_attach
+		WHERE		bno = #{bno}
+		ORDER BY	regdate
+	</select>
+	
 </mapper>

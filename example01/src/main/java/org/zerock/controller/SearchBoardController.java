@@ -1,5 +1,7 @@
 package org.zerock.controller;
 
+import java.util.*;
+
 import javax.inject.*;
 
 import org.slf4j.*;
@@ -90,4 +92,11 @@ public class SearchBoardController {
 		
 		return "redirect:/sboard/list";
 	}
+	
+	@RequestMapping("/getAttach/{bno}")
+	@ResponseBody
+	public List<String> getAttach(@PathVariable("bno")Integer bno) throws Exception {
+		return service.getAttach(bno);
+	}
+	
 }
