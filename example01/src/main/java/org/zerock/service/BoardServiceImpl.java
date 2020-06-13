@@ -37,13 +37,29 @@ public class BoardServiceImpl implements BoardService {
 		return dao.read(bno);
 	}
 
+	@Transactional
 	@Override
 	public void modify(BoardVO board) throws Exception {
-		dao.update(board);
+		dao.update(board);							// 기존 게시물 수정
+		
+		Integer bno = board.getBno();
+		dao.deleteAttach(bno);						// 기존 점부파일 삭제
+		
+		String[] files = board.getFiles();
+		
+		if(files == null) {
+			return;
+		}
+		
+		for(String fileName : files) {
+			dao.replaceAttach(fileName, bno);		// 새 첨부파일 추가
+		}
 	}
 
+	@Transactional
 	@Override
 	public void remove(Integer bno) throws Exception {
+		dao.deleteAttach(bno);			// 첨부파일과 관련된 정보 우선 삭제
 		dao.delete(bno);
 	}
 
