@@ -50,4 +50,21 @@ public class HomeController {
 		
 		return "test/test1";
 	}
+	
+	@RequestMapping(value="/doA", method=RequestMethod.GET)
+	public String doA(Locale locale, Model model) {
+		System.out.println("doA..................");
+		
+		return "home2";
+	}
+	
+	@RequestMapping(value="/doB", method=RequestMethod.GET)
+	public String doB(Locale locale, Model model) {
+		System.out.println("doB..................");
+		
+		model.addAttribute("result", "DOB RESULT");
+		
+		return "home2";
+	}
+	
 }

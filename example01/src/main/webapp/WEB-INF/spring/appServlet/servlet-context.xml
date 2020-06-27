@@ -33,4 +33,16 @@
 		<beans:constructor-arg value="D:\\zzz\\upload"></beans:constructor-arg>
 	</beans:bean>
 	
+	<!-- 스프링 인식을 위해 URI 설정 -->
+	<beans:bean id="sampleInterceptor" class="org.zerock.interceptor.SampleInterceptor">
+	</beans:bean>
+	
+	<interceptors>
+		<interceptor>
+			<mapping path="/doA"/>
+			<mapping path="/doB"/>
+			<beans:ref bean="sampleInterceptor"/>
+		</interceptor>
+	</interceptors>
+	
 </beans:beans>
