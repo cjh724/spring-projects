@@ -1,5 +1,7 @@
 package org.zerock.controller;
 
+import java.net.*;
+
 import javax.inject.*;
 import javax.servlet.http.*;
 
@@ -18,7 +20,16 @@ public class UserController {
 	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public void loginGET(@ModelAttribute("dto") LoginDTO dto) {
+		InetAddress local;
 		
+		try {
+			local = InetAddress.getLocalHost();
+			String ip = local.getHostAddress();
+			
+			System.out.println("local ip : " + ip);
+		} catch(UnknownHostException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@RequestMapping(value="/loginPost", method=RequestMethod.POST)

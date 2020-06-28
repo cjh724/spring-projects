@@ -33,7 +33,7 @@
 		<beans:constructor-arg value="D:\\zzz\\upload"></beans:constructor-arg>
 	</beans:bean>
 	
-	<!-- 스프링 인식을 위해 URI 설정 -->
+	<!-- 스프링 인식을 위해 URI 설정 (p618)-->
 	<beans:bean id="sampleInterceptor" class="org.zerock.interceptor.SampleInterceptor">
 	</beans:bean>
 	
@@ -45,6 +45,9 @@
 		</interceptor>
 	</interceptors>
 	
+	<!-- p643 -->
+	<beans:bean id="authInterceptor" class="org.zerock.interceptor.AuthInterceptor">
+	</beans:bean>
 	<beans:bean id="loginInterceptor" class="org.zerock.interceptor.LoginInterceptor">
 	</beans:bean>
 	
@@ -52,6 +55,10 @@
 		<interceptor>
 			<mapping path="/user/loginPost"/>
 			<beans:ref bean="loginInterceptor"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/sboard/register"/>
+			<beans:ref bean="authInterceptor"/>
 		</interceptor>
 	</interceptors>
 	
