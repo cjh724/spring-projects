@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%@ page session="false" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <%@ include file="/WEB-INF/views/include/header.jsp" %>
 <style type="text/css">
@@ -43,7 +44,9 @@
 				<h3 class="timeline-header"><strong>{{rno}}</strong> -{{replyer}}</h3>
 				<div class="timeline-body">{{replytext}}</div>
 				<div class="timeline-footer">
-					<a class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modifyModal">Modify</a>
+					{{#eqReplyer replyer}}
+						<a class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modifyModal">Modify</a>
+					{{/eqReplyer}}
 				</div>
 			</div>
 		</li>
@@ -69,6 +72,16 @@
 		var date = dateObj.getDate();
 		
 		return year + "/" + month + "/" + date;
+	});
+	
+	Handlebars.registerHelper("eqReplyer", function(replyer, block) {
+		var accum = '';
+		
+		if(replyer == "${login.uid}") {
+			accum += block.fn();
+		}
+		
+		return accum;
 	});
 	
 	var printDate = function(replyArr, target, templateObject) {
@@ -318,8 +331,10 @@
 <ul class="mailbox-attachments clearfix uploadedList"></ul>
 
 <div class="box-footer">
-	<button type="submit" class="btn btn-warning" id="modifyBtn">Modify</button>
-	<button type="submit" class="btn btn-danger" id="removeBtn">REMOVE</button>
+	<c:if test="${login.uid == boardVO.writer }">
+		<button type="submit" class="btn btn-warning" id="modifyBtn">Modify</button>
+		<button type="submit" class="btn btn-danger" id="removeBtn">REMOVE</button>
+	</c:if>
 	<button type="submit" class="btn btn-primary" id="goListBtn">LIST ALL</button>
 </div>
 
@@ -329,15 +344,26 @@
 			<div class="box-header">
 				<h3 class="box-title">ADD NEW REPLY</h3>
 			</div>
-			<div class="box-body">
-				<label for="newReplyWriter">Writer</label>
-				<input class="form-control" type="text" placeholder="USER ID" id="newReplyWriter">
-				<label for="newReplyText">ReplyText</label>
-				<input class="form-control" type="text" placeholder="REPLY TEXT" id="newReplyText">
-			</div>
-			<div class="box-footer">
-				<button type="submit" class="btn btn-primary" id="replyAddBtn">ADD REPLY</button>
-			</div>
+			
+			<c:if test="${not empty login }">
+				<div class="box-body">
+					<label for="newReplyWriter">Writer</label>
+					<input class="form-control" type="text" id="newReplyWriter" value="${login.uid }" readonly>
+					<label for="newReplyText">ReplyText</label>
+					<input class="form-control" type="text" placeholder="REPLY TEXT" id="newReplyText">
+				</div>
+				<div class="box-footer">
+					<button type="submit" class="btn btn-primary" id="replyAddBtn">ADD REPLY</button>
+				</div>
+			</c:if>
+			<c:if test="${empty login }">
+				<div class="box-body">
+					<div>
+						<a href="javascript:goLogin();">Login Please</a>
+					</div>
+				</div>
+			</c:if>
+			
 		</div>
 	</div>
 </div>
