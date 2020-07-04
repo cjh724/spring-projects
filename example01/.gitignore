@@ -1,0 +1,9 @@
+# directory
+
+# 1. target
+# - maven 빌드시 생성되는 폴더
+# - 프로젝트 컴파일 시 target/classes에 컴파일된 결과 생성
+target/
+
+# 2. .settings
+.settings/
