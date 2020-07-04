@@ -1,6 +1,7 @@
 package org.zerock.controller;
 
 import java.net.*;
+import java.util.*;
 
 import javax.inject.*;
 import javax.servlet.http.*;
@@ -41,6 +42,13 @@ public class UserController {
 		}
 		
 		model.addAttribute("userVO", vo);
+		
+		if(dto.isUseCookie()) {
+			int amount = 60 * 60 * 24 * 7;
+			Date sessionLimit = new Date(System.currentTimeMillis() + (1000 * amount));
+			
+			service.keepLogin(vo.getUid(), session.getId(), sessionLimit);
+		}
 	}
 	
 }
